@@ -47,3 +47,21 @@ These Subnet CIDR blocks were chosen so that the subnets do not overlap, while r
 ![pic 3](images/3-private-subnets.png)
 
 <br>
+
+---
+
+### Step 4
+
+As you can see in the screenshots below:
+
+- An internet gateway is a virtual router that connects a VPC to the internet. Created an internet gateway called `demo-igw` (1) and then attached the internet gateway to the VPC (2,3). This way you enable the VPC to communicate with the internet.
+
+<br>
+
+![pic 4](images/4-internet-gateway.png)
+
+<br>
+
+---
+
+### Step 5
