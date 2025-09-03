@@ -1,7 +1,11 @@
 ### Step 1
 
-The Virtual Private Cloud (VPC) was created with an IPv4 CIDR block of
-`10.0.0.0/16`.
+A VPC is a virtual network that closely resembles a traditional network that you'd operate in your own data center. After you create a VPC, you can add subnets.
+
+As you can see in the screenshot:
+
+- The Virtual Private Cloud (VPC) was created with an IPv4 CIDR block of
+  `10.0.0.0/16`.
 
 <br>
 
@@ -12,6 +16,8 @@ The Virtual Private Cloud (VPC) was created with an IPv4 CIDR block of
 ---
 
 ### Step 2
+
+A subnet is a range of IP addresses in your VPC. A subnet must reside in a single Availability Zone. After you add subnets, you can deploy AWS resources in your VPC.
 
 As shown in the screenshot:
 
@@ -52,9 +58,11 @@ These Subnet CIDR blocks were chosen so that the subnets do not overlap, while r
 
 ### Step 4
 
-As you can see in the screenshots below:
+A gateway connects your VPC to another network. Here you are dealing with an internet gateway. An internet gateway is a virtual router that connects a VPC to the internet.
 
-- An internet gateway is a virtual router that connects a VPC to the internet. Created an internet gateway called `demo-igw` (1) and then attached the internet gateway to the VPC (2,3). This way you enable the VPC to communicate with the internet.
+As you can see in these screenshots:
+
+- Created an internet gateway called `demo-igw` (1) and then attached the internet gateway to the VPC (2,3). This way you enable the VPC to communicate with the internet.
 
 <br>
 
@@ -65,3 +73,32 @@ As you can see in the screenshots below:
 ---
 
 ### Step 5
+
+Route tables determine where network traffic from your subnet or gateway is directed.
+
+As can be seen in the screenshot:
+
+- Created `PublicRouteTable` and added `demo-vpc` as the vpc to use for the `PublicRouteTable`. The `PublicRouteTable` will later on be associated with `PublicSubnetA` and `PublicSubnetB`.
+
+<br>
+
+![pic 5](images/5-PublicRouteTable.png)
+
+<br>
+
+---
+
+### Step 6
+
+Route tables determine where network traffic from your subnet or gateway is directed.
+
+As can be seen in the screenshot:
+
+- Created `PrivateRouteTable-A` and added `demo-vpc` as the vpc to use for the `PrivateRouteTable-A`. The `PrivateRouteTable-A` will later on be associated with `PrivateSubnetA`.
+- Created `PrivateRouteTable-B` and added `demo-vpc` as the vpc to use for the `PrivateRouteTable-B`. The `PrivateRouteTable-B` will later on be associated with `PrivateSubnetB`.
+
+<br>
+
+![pic 6](images/6-PrivateRouteTables.png)
+
+<br>
