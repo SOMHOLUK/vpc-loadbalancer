@@ -4,7 +4,7 @@ A VPC is a virtual network that closely resembles a traditional network that you
 
 As you can see in the screenshot:
 
-- The Virtual Private Cloud (VPC) was created with an IPv4 CIDR block of
+- A custom Virtual Private Cloud (VPC) was created with an IPv4 CIDR block of
   `10.0.0.0/16`.
 
 <br>
@@ -62,7 +62,7 @@ A gateway connects your VPC to another network. Here you are dealing with an int
 
 As you can see in these screenshots:
 
-- Created an internet gateway called `demo-igw` (1) and then attached the internet gateway to the VPC (2,3). This way you enable the VPC to communicate with the internet.
+- Created an internet gateway called `demo-igw` (1) and then attached the internet gateway to the custom VPC (2,3) called `demo-vpc`. This way you enable the VPC to communicate with the internet.
 
 <br>
 
@@ -102,3 +102,33 @@ As can be seen in the screenshot:
 ![pic 6](images/6-PrivateRouteTables.png)
 
 <br>
+
+---
+
+### Step 7
+
+Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
+
+Here, `PublicSubnetA` and `PublicSubnetB` are being associated with the `PublicRouteTable`.
+
+<br>
+
+![pic 7](images/7-public-subnet-association.png)
+
+<br>
+
+---
+
+### Step 8
+
+Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
+
+Here, `PrivateSubnetA` is being associated with the `PrivateRouteTable-A`.
+
+<br>
+
+![pic 7](images/7-private-subnet-A-association.png)
+
+<br>
+
+---
