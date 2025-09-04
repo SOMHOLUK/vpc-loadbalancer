@@ -109,6 +109,7 @@ As can be seen in the screenshot:
 
 Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
 
+Updated subnet associations for `PublicRouteTable`.
 Here, `PublicSubnetA` and `PublicSubnetB` are being associated with the `PublicRouteTable`.
 
 <br>
@@ -123,11 +124,27 @@ Here, `PublicSubnetA` and `PublicSubnetB` are being associated with the `PublicR
 
 Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
 
+Updated subnet associations for `PrivateRouteTable-A`.
 Here, `PrivateSubnetA` is being associated with the `PrivateRouteTable-A`.
 
 <br>
 
 ![pic 8](images/8-private-subnet-A-association.png)
+
+<br>
+
+---
+
+### Step 9
+
+Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
+
+Updated subnet associations for `PrivateRouteTable-B`.
+Here, `PrivateSubnetB` is being associated with the `PrivateRouteTable-B`.
+
+<br>
+
+![pic 9](images/9-private-subnet-A-association.png)
 
 <br>
 
