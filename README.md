@@ -187,3 +187,75 @@ As can be seen in the screenshots, updated the `PublicRouteTable` by adding a ro
 <br>
 
 ---
+
+### Step 13
+
+Created a NAT gateway called `NATGW-A` in `PublicSubnetA`.
+
+Although the internet cannot establish connections with the EC2 instance in `PrivateSubnetA`, the public
+NAT Gateway called `NATGW-A` in `PublicSubnetA` will enable the EC2 instance in `PrivateSubnetA` to send outbound traffic to the internet.
+
+It is recommended to use at least one NAT Gateway in each Availability Zone where you run a workload.
+A dedicated NAT Gateway in each Availability Zone lets you route traffic within the same Availability Zone so you do not pay for inter-AZ Data Transfer.
+
+Furthermore, when considering resiliency, it optimises your fault tolerance in an event of Availability Zone failure.
+
+<br>
+
+![pic 13](images/13-nat-gateway-a.png)
+
+<br>
+
+---
+
+### Step 14
+
+The `PrivateRouteTable-A` is the route table for `PrivateSubnetA`. The `PrivateRouteTable-A` must have a route that sends internet traffic to the NAT gateway, in this case `NATGW-A`.
+
+As can be seen in the screenshots, updated the route table `PrivateRouteTable-A` of the private subnet called `PrivateSubnetA` to direct traffic to the NAT Gateway called `NATGW-A`.
+
+This allows the EC2 instance in the private subnet to initiate outbound internet connections while remaining unreachable directly from the internet.
+
+<br>
+
+![pic 14](images/14-route-to-NATGW-A.png)
+
+<br>
+
+---
+
+### Step 15
+
+Created a NAT gateway called `NATGW-B` in `PublicSubnetB`.
+
+Although the internet cannot establish connections with the EC2 instance in `PrivateSubnetB`, the public
+NAT Gateway called `NATGW-B` in `PublicSubnetB` will enable the EC2 instance in `PrivateSubnetB` to send outbound traffic to the internet.
+
+It is recommended to use at least one NAT Gateway in each Availability Zone where you run a workload.
+A dedicated NAT Gateway in each Availability Zone lets you route traffic within the same Availability Zone so you do not pay for inter-AZ Data Transfer.
+
+Furthermore, when considering resiliency, it optimises your fault tolerance in an event of Availability Zone failure.
+
+<br>
+
+![pic 15](images/15-nat-gateway-b.png)
+
+<br>
+
+---
+
+### Step 16
+
+The `PrivateRouteTable-B` is the route table for `PrivateSubnetB`. The `PrivateRouteTable-B` must have a route that sends internet traffic to the NAT gateway, in this case `NATGW-B`.
+
+As can be seen in the screenshots, updated the route table `PrivateRouteTable-B` of the private subnet called `PrivateSubnetB` to direct traffic to the NAT Gateway called `NATGW-B`.
+
+This allows the EC2 instance in the private subnet to initiate outbound internet connections while remaining unreachable directly from the internet.
+
+<br>
+
+![pic 16](images/16-route-to-NATGW-B.png)
+
+<br>
+
+---
