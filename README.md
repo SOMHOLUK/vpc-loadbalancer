@@ -144,7 +144,7 @@ Here, `PrivateSubnetB` is being associated with the `PrivateRouteTable-B`.
 
 <br>
 
-![pic 9](images/9-private-subnet-A-association.png)
+![pic 9](images/9-private-subnet-B-association.png)
 
 <br>
 
