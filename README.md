@@ -154,7 +154,6 @@ Here, `PrivateSubnetB` is being associated with the `PrivateRouteTable-B`.
 
 After creating a subnet, you can modify the auto-assign IP settings by selecting `Enable auto-assign public IPv4 address` . This setting will give any new EC2 instance you launch in `PublicSubnetA` automatically a public IP address.
 
-
 <br>
 
 ![pic 10](images/10-auto-assign-A.png)
@@ -167,7 +166,6 @@ After creating a subnet, you can modify the auto-assign IP settings by selecting
 
 After creating a subnet, you can modify the auto-assign IP settings by selecting `Enable auto-assign public IPv4 address` . This setting will give any new EC2 instance you launch in `PublicSubnetB` automatically a public IP address.
 
-
 <br>
 
 ![pic 11](images/11-auto-assign-B.png)
@@ -176,7 +174,16 @@ After creating a subnet, you can modify the auto-assign IP settings by selecting
 
 ---
 
+### Step 12
 
+The `PublicRouteTable` is the route table for `PublicSubnetA` and `PublicSubnetB`. The `PublicRouteTable` must have a route that sends internet traffic to the internet gateway.
 
+As can be seen in the screenshots, updated the `PublicRouteTable` by adding a route that sends the internet traffic to the demo-igw (demo internet gateway) that was created in step 4.
 
+<br>
 
+![pic 12](images/12-route-to-internetgateway.png)
+
+<br>
+
+---
