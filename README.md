@@ -127,7 +127,7 @@ Here, `PrivateSubnetA` is being associated with the `PrivateRouteTable-A`.
 
 <br>
 
-![pic 7](images/7-private-subnet-A-association.png)
+![pic 8](images/8-private-subnet-A-association.png)
 
 <br>
 
