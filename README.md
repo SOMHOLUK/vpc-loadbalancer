@@ -342,7 +342,7 @@ Since the internet-facing Application Load Balancer is being used here, the publ
 
 <br>
 
-![pic 22](images/22-loadbalancer-2.png)
+![pic 22](images/22-load-balancer-2.png)
 
 <br>
 
@@ -356,7 +356,7 @@ A listener is a process that checks for connection requests, using the protocol 
 
 <br>
 
-![pic 23](images/23-loadbalancer-3.png)
+![pic 23](images/23-load-balancer-3.png)
 
 <br>
 
@@ -365,7 +365,6 @@ A listener is a process that checks for connection requests, using the protocol 
 ### Step 24
 
 Created a security group called `web-sg` for the EC2 instance in `PrivateSubnetA` and the EC2 instance in `PrivateSubnetB`. The security group only allows HTTP traffic from the Application Load Balancer and that's why for the inbound rule `HTTP` was chosen as `type` and the Application Load Balancer's security group was chosen as `source`.
-
 
 <br>
 
@@ -397,7 +396,7 @@ b. An Amazon Machine Image was chosen. It includes an Image ID.
 <br>
 <br>
 
-c. Instance type `t2.micro` was used and key pair `loadbalancer` was created. 
+c. Instance type `t2.micro` was used and key pair `loadbalancer` was created.
 
 <br>
 
@@ -423,8 +422,3 @@ e. At the bottom of the page, under section `Advanced details` , a script that i
 
 <br>
 <br>
-
-
-
-
-
