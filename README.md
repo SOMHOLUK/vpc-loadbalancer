@@ -259,3 +259,172 @@ This allows the EC2 instance in the private subnet to initiate outbound internet
 <br>
 
 ---
+
+### Step 17
+
+Created the security group demo-lb-sg for the Application Load Balancer (ALB). This security group allows inbound HTTP traffic on port 80 and HTTPS traffic on port 443 from the internet (0.0.0.0/0)
+
+<br>
+
+![pic 17](images/17-demo-lb-sg.png)
+
+<br>
+
+---
+
+### Step 18
+
+Created a target group called `demo-tg`. This target group route requests to individual registered targets, in this case the EC2 instance in `PrivateSubnetA` and `PrivateSubnetB`, using the protocol `HTTP` and the port number `80`, as can be seen in the screenshot.
+
+So the Application Load Balancer (ALB), routes requests to the EC2 instances we have just mentioned, by using the protocol and port number that were specified when the target group was created, as can be seen in the screenshot.
+
+<br>
+
+![pic 18](images/18-demo-tg-1.png)
+
+<br>
+
+---
+
+### Step 19
+
+Although, there are the protocol versions HTTP/2 and gRPC, but by default the Application Load Balancer sends requests to targets using HTTP/1.1 and therefore the protocol version `HTTP/1.1` was selected, as can be seen in the screenshot.
+
+The Application Load Balancer periodically sends requests to its registered targets to test their status. These tests are called health checks.
+
+The health check settings have been configured to have `HTTP` for the `Health check protocol` setting. So in this case the Application Load Balancer used the default `HTTP` protocol when performing health checks on the EC2 instances. The HTTP GET method is used here, to send health check requests.
+The `HTTP` protocol uses the HTTP GET method to send health check requests.
+
+Furthermore, `/` was used for the `Health check path` setting. Since we used protocol version HTTP/1.1, the default is `/` for the `Health check path` setting.
+
+<br>
+
+![pic 19](images/19-demo-tg-2.png)
+
+<br>
+
+---
+
+### Step 20
+
+Click on Next and then on the next page, click on Create target group.
+
+<br>
+
+![pic 20a](images/20a-demo-tg-3.png)
+
+<br>
+
+<br>
+
+![pic 20b](images/20b-demo-tg-4.png)
+
+<br>
+
+---
+
+### Step 21
+
+Created an internet-facing Application Load Balancer (that can be accessed from the internet) called `demo-alb` and in the Network mapping section, the `demo-vpc` was chosen, meaning that the Application Load Balancer (ALB) will
+exist and scale within the `demo-vpc`.
+
+<br>
+
+![pic 21](images/21-loadbalancer-1.png)
+
+<br>
+
+---
+
+### Step 22
+
+Since the internet-facing Application Load Balancer is being used here, the public subnets `PublicSubnetA` and `PublicSubnetB` have been selected, in order for the EC2 instances in the private subnets to receive traffic from the Application Load Balancer.
+
+<br>
+
+![pic 22](images/22-loadbalancer-2.png)
+
+<br>
+
+---
+
+### Step 23
+
+The listener rule `http:80` in this case, determines how the Application Load Balancer routes requests to `demo-tg`.
+
+A listener is a process that checks for connection requests, using the protocol (in this case: `http`) and port (in this case: `80`) that you configure.
+
+<br>
+
+![pic 23](images/23-loadbalancer-3.png)
+
+<br>
+
+---
+
+### Step 24
+
+Created a security group called `web-sg` for the EC2 instance in `PrivateSubnetA` and the EC2 instance in `PrivateSubnetB`. The security group only allows HTTP traffic from the Application Load Balancer and that's why for the inbound rule `HTTP` was chosen as `type` and the Application Load Balancer's security group was chosen as `source`.
+
+
+<br>
+
+![pic 24](images/24-web-sg.png)
+
+<br>
+
+---
+
+### Step 25
+
+Before you can create an Auto Scaling group using a launch template, you must create a launch template that contains the configuration information to launch an instance.
+
+a. A launch template called `MyTemplate` was created.
+
+<br>
+
+![pic 25a](images/25-a-launch-template.png)
+
+<br>
+<br>
+
+b. An Amazon Machine Image was chosen. It includes an Image ID.
+
+<br>
+
+![pic 25b](images/25-b-launch-template.png)
+
+<br>
+<br>
+
+c. Instance type `t2.micro` was used and key pair `loadbalancer` was created. 
+
+<br>
+
+![pic 25c](images/25-c-launch-template.png)
+
+<br>
+<br>
+
+d. Security group web-sg was selected.
+
+<br>
+
+![pic 25d](images/25-d-launch-template.png)
+
+<br>
+<br>
+
+e. At the bottom of the page, under section `Advanced details` , a script that installs the Apache web server was copied into the `user data` section.
+
+<br>
+
+![pic 25e](images/25-e-launch-template.png)
+
+<br>
+<br>
+
+
+
+
+
