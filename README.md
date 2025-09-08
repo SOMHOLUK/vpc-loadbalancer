@@ -274,7 +274,7 @@ Created the security group demo-lb-sg for the Application Load Balancer (ALB). T
 
 ### Step 18
 
-Created a target group called `demo-tg`. This target group route requests to individual registered targets, in this case the EC2 instance in `PrivateSubnetA` and `PrivateSubnetB`, using the protocol `HTTP` and the port number `80`, as can be seen in the screenshot.
+First left the VPC section in the AWS console (the VPC console) and went to the EC2 section in the AWS console (the EC2 Console). In the EC2 console, created a target group called `demo-tg`. This target group route requests to individual registered targets, in this case the EC2 instance in `PrivateSubnetA` and `PrivateSubnetB`, using the protocol `HTTP` and the port number `80`, as can be seen in the screenshot.
 
 So the Application Load Balancer (ALB), routes requests to the EC2 instances we have just mentioned, by using the protocol and port number that were specified when the target group was created, as can be seen in the screenshot.
 
@@ -325,7 +325,7 @@ Click on Next and then on the next page, click on Create target group.
 
 ### Step 21
 
-Created an internet-facing Application Load Balancer (that can be accessed from the internet) called `demo-alb` and in the Network mapping section, the `demo-vpc` was chosen, meaning that the Application Load Balancer (ALB) will
+Stayed in the EC2 section in the AWS Console and created an internet-facing Application Load Balancer (that can be accessed from the internet) called `demo-alb` and in the Network mapping section, the `demo-vpc` was chosen, meaning that the Application Load Balancer (ALB) will
 exist and scale within the `demo-vpc`.
 
 <br>
@@ -364,7 +364,9 @@ A listener is a process that checks for connection requests, using the protocol 
 
 ### Step 24
 
-Created a security group called `web-sg` for the EC2 instance in `PrivateSubnetA` and the EC2 instance in `PrivateSubnetB`. The security group only allows HTTP traffic from the Application Load Balancer and that's why for the inbound rule `HTTP` was chosen as `type` and the Application Load Balancer's security group was chosen as `source`.
+Went to the VPC section in the AWS Console (the VPC Console) and created a security group called `web-sg` for the EC2 instance in `PrivateSubnetA` and the EC2 instance in `PrivateSubnetB`. The security group only allows HTTP traffic from the Application Load Balancer and that's why for the inbound rule `HTTP` was chosen as `type` and the Application Load Balancer's security group was chosen as `source`.
+
+The security group `web-sg` must allow access from the load balancer on both the listener port (usually port 80 for HTTP traffic) and the port that you want Elastic Load Balancing to use for health checks (as can be seen in step 19 when creating the target group, under `health checks`, the `health check protocol` is HTTP, which is port 80).
 
 <br>
 
@@ -375,6 +377,8 @@ Created a security group called `web-sg` for the EC2 instance in `PrivateSubnetA
 ---
 
 ### Step 25
+
+Went back to the EC2 section in the AWS Console (the EC2 Console) and created a launch template.
 
 Before you can create an Auto Scaling group using a launch template, you must create a launch template that contains the configuration information to launch an instance.
 
@@ -422,3 +426,196 @@ e. At the bottom of the page, under section `Advanced details` , a script that i
 
 <br>
 <br>
+
+---
+
+### Step 26
+
+Stayed in the EC2 section in the AWS Console (the EC2 Console) and created an Auto Scaling Group.
+
+a. An auto scaling group called `my-auto-scaling-group` was created.
+The launch template called `MyTemplate` that was created in the previous step (step 25) was chosen and all its details came up
+such as the AMI ID and the security group ID etc.
+
+<br>
+
+![pic 26a](images/26-a-1-create-auto-scaling-group-1.png)
+
+<br>
+<br>
+
+![pic 26a-2](images/26-a-2-create-auto-scaling-group-2.png)
+
+<br>
+<br>
+
+b. Chose the custom vpc that was used which was in this case `vpc-demo`. The Auto Scaling group must be created in the same VPC as the security group (`web-sg` as you can see in step 25d) you specified in your launch template.
+
+Furthermore, since the intention was to create one EC2 instance in `PrivateSubnetA` and one EC2 instance in `PrivateSubnetB`,in the network section under Availability Zones and subnets, `PrivateSubnetA` and `PrivateSubnetB` were selected.
+
+If you're using private subnets, you can allow the Auto Scaling instances to access the internet by using a public NAT gateway. That's why there is `NATGW-A` in the `PublicSubnetA` and `NATGW-B` in the `PublicSubnetB`.
+
+<br>
+
+![pic 26b](images/26-b-auto-scaling-group.png)
+
+<br>
+<br>
+
+c. Here, attached the auto-scaling group to the load balancer and specified a target group by selecting `Attach to an existing load balancer` and then selecting `Choose from your load balancer target groups` and selecting the target group `demo-tg` that was created from step 18 to step 20.
+
+So, EC2 instances that are launched by your Auto Scaling group are automatically registered with the load balancer. Likewise, instances that are terminated by your Auto Scaling group are automatically deregistered from the load balancer.
+
+<br>
+
+![pic 26c](images/26-c-autoscaling.png)
+
+<br>
+<br>
+
+d.
+
+In the first screenshot, you can see that the EC2 health checks are always enabled.
+
+In the second screenshot, selected `Turn on Elastic Load Balancing health checks`, so that Amazon EC2 Auto Scaling can identify and replace unhealthy instances based on these additional health checks.
+
+<br>
+
+![pic 26-d-1](images/26-d-1-autoscaling.png)
+
+<br>
+<br>
+
+![pic 26-d-2](images/26-d-2-autoscaling.png)
+
+<br>
+<br>
+
+e. A scaling policy is not needed here, because this auto scaling group will maintain a fixed number of EC2 instances, which is in this case to keep always 2 EC2 instances running.
+
+<br>
+
+![pic 26-e](images/26-e-autoscaling.png)
+
+<br>
+<br>
+
+f. Keep everything else the way it is (default).
+
+<br>
+
+![pic 26-f](images/26-f-autoscaling.png)
+
+<br>
+<br>
+
+g. Click on skip to review, review it and then click on `Create Auto Scaling Group`.
+
+<br>
+
+![pic 26-g-1](images/26-g-1-autoscaling.png)
+
+<br>
+<br>
+
+![pic 26-g-2](images/26-g-2-autoscaling.png)
+
+<br>
+<br>
+
+![pic 26-g-3](images/26-g-3-autoscaling.png)
+
+<br>
+<br>
+
+![pic 26-g-4](images/26-g-4-autoscaling.png)
+
+<br>
+<br>
+
+![pic 26-g-5](images/26-g-5-autoscaling.png)
+
+<br>
+<br>
+
+---
+
+### Step 27
+
+Verified whether the Application Loadbalancer was attached by taking these steps.
+
+a. If you click on the auto scaling group that you created (which is in this case `my-auto-scaling-group`) and you then click on the `integrations` tab, you can see under `load balancing ` the attached `load balancer target groups`, which is in this case `demo-tg`.
+
+<br>
+
+![pic 27a](images/27-a-verify-loadbalancer-attached.png)
+
+<br>
+<br>
+
+b. If you click on the `Activity tab`, you can verify that your instances were launched successfully. Here, you can see that the `status` column shows that the Auto Scaling group has successfully launched the EC2 instances
+
+<br>
+
+![pic 27b](images/27-b-verify-loadbalancer-attached.png)
+
+<br>
+<br>
+
+c. As you can see , under the `Instance management` tab, you can see that the instances are ready to receive traffic because under `lifecycle` its state says `inService`. Furthermore, under the `Health Status` column it says `Healthy`. The Health status column shows the result of the Amazon EC2 Auto Scaling health checks on your instances. Although an instance may be marked as healthy, the load balancer will only send traffic to instances that pass the load balancer health checks.
+
+<br>
+
+![pic 27c](images/27-c-verify-loadbalancer-attached.png)
+
+<br>
+<br>
+
+
+d. Opened the `Target groups` page (under `Load Balancing`) of the Amazon EC2 console, selected the target group `demo-tg` and clicked on the `targets` tab. 
+
+
+ Since the `Health status` of the instances here shows as `Healthy`, the instances have been registered.
+ If the state of the instances would have been `initial`, it would have been probably because they are still in the process of being registered or still undergoing health checks. However, here the state of the instances is `Healthy`, so the instances are ready for use.
+
+ Verified that the instances were registered with the load balancer.
+
+
+<br>
+
+![pic 27d](images/27-d-verify-loadbalancer-attached.png)
+
+<br>
+<br>
+
+---
+
+### Step 28
+
+a. Configured an HTTPS listener with a valid SSL certificate. 
+
+<br>
+
+![pic 28a](images/28-a-listeners-http-https.png)
+
+<br>
+<br>
+b. Everytime the page is refreshed, you see one of the 2 EC2 instances' private ip address on the page.
+
+<br>
+
+![pic 28b](images/28-b-loadbalancer-page-1.png)
+
+<br>
+<br>
+
+![pic 28b](images/28-b-loadbalancer-page-1.png)
+
+<br>
+
+---
+
+
+
+
+
