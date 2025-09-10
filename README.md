@@ -1,3 +1,15 @@
+## Project Summary
+
+Created a custom VPC in AWS with both public and private subnets spread across two Availability Zones for high availability. The public subnets connect to the internet through an Internet Gateway, while the private subnets use NAT Gateways for outbound access without being directly exposed. An Application Load Balancer was set up in the public subnets to forward traffic to EC2 instances running in the private subnets. Auto Scaling was used so new EC2 instances launch automatically when needed, with Apache installed via a launch template. Security groups were used and whether both NAT Gateways actually worked properly was checked through the use of a temporary Bastion.
+
+<br>
+
+---
+
+### Architecture diagram
+
+![pic 30](images/30-diagram-pic.png)
+
 ### Step 1
 
 A VPC is a virtual network that closely resembles a traditional network that you'd operate in your own data center. After you create a VPC, you can add subnets.
@@ -571,15 +583,12 @@ c. As you can see , under the `Instance management` tab, you can see that the in
 <br>
 <br>
 
+d. Opened the `Target groups` page (under `Load Balancing`) of the Amazon EC2 console, selected the target group `demo-tg` and clicked on the `targets` tab.
 
-d. Opened the `Target groups` page (under `Load Balancing`) of the Amazon EC2 console, selected the target group `demo-tg` and clicked on the `targets` tab. 
+Since the `Health status` of the instances here shows as `Healthy`, the instances have been registered.
+If the state of the instances would have been `initial`, it would have been probably because they are still in the process of being registered or still undergoing health checks. However, here the state of the instances is `Healthy`, so the instances are ready for use.
 
-
- Since the `Health status` of the instances here shows as `Healthy`, the instances have been registered.
- If the state of the instances would have been `initial`, it would have been probably because they are still in the process of being registered or still undergoing health checks. However, here the state of the instances is `Healthy`, so the instances are ready for use.
-
- Verified that the instances were registered with the load balancer.
-
+Verified that the instances were registered with the load balancer.
 
 <br>
 
@@ -592,7 +601,7 @@ d. Opened the `Target groups` page (under `Load Balancing`) of the Amazon EC2 co
 
 ### Step 28
 
-a. Configured an HTTPS listener with a valid SSL certificate. 
+a. Configured an HTTPS listener with a valid SSL certificate.
 
 <br>
 
@@ -615,7 +624,40 @@ b. Everytime the page is refreshed, you see one of the 2 EC2 instances' private 
 
 ---
 
+### Step 29
 
+Also checked whether both private instances in the private subnets were able to initiate outbound connectivity through the NAT Gateway they share an availability zone with, by temporarily putting a bastion in Public Subnet A and Public Subnet B. SSH’d into both Bastion-A and Bastion-B and then ssh'd into the private instances and in both cases, both private instances were able to initiate internet connectivity successfully as you can see in the pictures below.
 
+<br>
 
+![pic 29a](images/29-a-private-server-a-internet-works.png)
 
+<br>
+
+<br>
+
+![pic 29b](images/29-b-Bastion-A-ip-address.png)
+
+<br>
+
+<br>
+
+![pic 29c](images/29-c-private-server-a-ipaddress.png)
+
+<br>
+
+<br>
+
+![pic 29d](images/29-d-private-server-b-internet-working.png)
+
+<br>
+
+<br>
+
+![pic 29e](images/29-e-Bastion-B-ipaddress.png)
+
+<br>
+
+<br>
+
+![pic 29f](images/29-f-private-server-b-ipaddress.png)
