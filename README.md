@@ -286,9 +286,9 @@ Created the security group demo-lb-sg for the Application Load Balancer (ALB). T
 
 ### Step 18
 
-First left the VPC section in the AWS console (the VPC console) and went to the EC2 section in the AWS console (the EC2 Console). In the EC2 console, created a target group called `demo-tg`. This target group route requests to individual registered targets, in this case the EC2 instance in `PrivateSubnetA` and `PrivateSubnetB`, using the protocol `HTTP` and the port number `80`, as can be seen in the screenshot.
+First left the VPC section in the AWS console (the VPC console) and went to the EC2 section in the AWS console (the EC2 Console). In the EC2 console, created a target group called `demo-tg`. This target group routes requests to individual registered targets, in this case the EC2 instance in `PrivateSubnetA` and `PrivateSubnetB`.
 
-So the Application Load Balancer (ALB), routes requests to the EC2 instances we have just mentioned, by using the protocol and port number that were specified when the target group was created, as can be seen in the screenshot.
+So the Application Load Balancer (ALB), routes requests to the EC2 instances we have just mentioned, by using the protocol `HTTP` and port number `80` that were specified when the target group was created, as can be seen in the screenshot.
 
 <br>
 
